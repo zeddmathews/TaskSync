@@ -1,0 +1,47 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Build output
+/build/
+bin/
+dist/
+
+# Go build artifacts
+*.o
+*.a
+*.tmp
+
+# Dependency directories (Go modules)
+vendor/
+
+# Go workspace stuff
+go.sum
+
+# Logs
+*.log
+
+# Generated gRPC code (optional if you generate in-place)
+proto/*.pb.go
+proto/*.grpc.pb.go
+
+# VSCode settings
+.vscode/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# IDEs and editors
+*.swp
+*.swo
+*.idea/
+*.iml
+
+# Docker
+docker/*.tar
