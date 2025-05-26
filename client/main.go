@@ -24,9 +24,8 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
-	req := &taskpb.TaskRequest{
-		Title: "Test task",
-		Description: "Instance of task testing",
+	req := &taskpb.CreateRequest{
+		Message: "Test task",
 	}
 
 	res, err := client.CreateTask(ctx, req)
@@ -34,7 +33,7 @@ func main() {
 		log.Fatalf("Error creating task: %v", err)
 	}
 
-	log.Printf("Task created. ID: %s, Status: %s\n", res.Id, res.Status)
+	log.Printf("Task created. ID: %v\n", res.Res)
 
 	fmt.Println("gRPC client running...")
 }

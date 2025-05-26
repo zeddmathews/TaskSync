@@ -6,18 +6,17 @@ import (
     taskpb "github.com/zeddmathews/tasksync/proto"
 )
 
-type TaskServiceServer struct {
-    taskpb.UnimplementedTaskServiceServer
-}
+// type TaskServiceServer struct {
+//     taskpb.UnimplementedTaskServiceServer
+// }
 
-func (s *TaskServiceServer) CreateTask(ctx context.Context, req *taskpb.TaskRequest) (tr *taskpb.TaskResponse, err error) {
+func (s *TaskServiceServer) CreateTask(ctx context.Context, req *taskpb.CreateRequest) (tr *taskpb.CreateResponse, err error) {
     fmt.Println("Received CreateTask request:", req)
 
     // Simulate creating a task and generating an ID
-    taskID := "task-123"
-	tr = &taskpb.TaskResponse{
-		Id: taskID,
-		Status: "Created",
+    var taskID int32 = 123
+	tr = &taskpb.CreateResponse{
+		    Res: taskID,
 	}
 	err = nil
 	return
