@@ -7,9 +7,9 @@ import (
 	"google.golang.org/grpc"
 	taskpb "github.com/zeddmathews/tasksync/proto"
 )
-type TaskServiceServer struct {
-    taskpb.UnimplementedTaskServiceServer
-}
+// type TaskServiceServer struct {
+//     taskpb.UnimplementedTaskServiceServer
+// }
 func main()  {
 	port := ":50051"
 	lis, err := net.Listen("tcp", port)
