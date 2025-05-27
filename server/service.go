@@ -46,3 +46,20 @@ func (s * TaskServiceServer) GetTask(ctx context.Context, req *taskpb.GetRequest
     return
 }
 
+func (s * TaskServiceServer) UpdateTask (ctx context.Context, req *taskpb.UpdateRequest) (tr *taskpb.Empty, err error) {
+    query := `UPDATE tasks SET messages = $1 WHERE id = $2`
+    _, err = DB.ExecContext(ctx, query, req.Message, req.Id)
+    if err != nil {
+        return
+    }
+    return
+}
+
+func (s * TaskServiceServer) DeleteTask (ctx context.Context, req * taskpb.DeleteRequest) (tr *taskpb.Empty, err error) {
+    query := `DELETE FROM tasks WHERE id = $1`
+    _, err = DB.ExecContext(ctx, query, req.Id)
+    if err != nil {
+        return
+    }
+    return
+}

@@ -11,6 +11,7 @@ protoc-gen-go-grpc -> Converts .proto into gRPC service interfaces for Go
 protoc --go_out=. --go-grpc_out=. proto/task.proto -> Generates code from .proto file and put it into the proto directory **rerun if changes to rpc calls and services
 **use go build over go run, the executable works better in this case than the temporary in storage build of go run (NTS --> figure out why)
 
+$1, $2 -> placeholders to prevent sql injection, follows order defined in query execution args
 
 ** DB testing
 docker-compose down -v

@@ -13,7 +13,7 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-      - ./docker/db-init:/docker-entrypoint-initdb.d/create_tables.sql
+      - ./docker/db-init/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
     networks:
       - tasksync-net
     
