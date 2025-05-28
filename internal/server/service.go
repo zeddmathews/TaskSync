@@ -1,16 +1,20 @@
-package main
+package server
 
 import (
-    "context"
-    "fmt"
-    // "database/sql"
-    taskpb "github.com/zeddmathews/tasksync/proto"
+	"context"
+	"fmt"
+
+	// "database/sql"
+	taskpb "github.com/zeddmathews/tasksync/proto"
+	"google.golang.org/grpc"
 )
 
 type TaskServiceServer struct {
     taskpb.UnimplementedTaskServiceServer
 }
-
+func RegisterServices(grpcServer *grpc.Server) {
+	taskpb.RegisterTaskServiceServer(grpcServer, &TaskServiceServer{})
+}
 func (s *TaskServiceServer) CreateTask(ctx context.Context, req *taskpb.CreateRequest) (tr *taskpb.CreateResponse, err error) {
     fmt.Println("Received CreateTask request:", req)
     query := `INSERT INTO tasks (messages) VALUES ($1) RETURNING id`
