@@ -16,23 +16,23 @@ services:
       - ./docker/db-init/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
     networks:
       - tasksync-net
-    
-    server:
-      build:
-        context: .
-        dockerfile: docker/Dockerfile.server
-      ports:
-        - "50051:50051"
-      environment:
-        DB_HOST: db
-        DB_PORT: 5432
-        DB_USER: postgres
-        DB_PASSWORD: 1234
-        DB_NAME: tasksync
-      depends_on:
-        - db
-      networks:
-        - tasksync-net
+
+  server:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.server
+    ports:
+      - "50051:50051"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: 1234
+      DB_NAME: tasksyncdb      # <-- match POSTGRES_DB value here
+    depends_on:
+      - db
+    networks:
+      - tasksync-net
 
   client:
     build:
@@ -42,70 +42,9 @@ services:
       - server
     networks:
       - tasksync-net
-  
-  volumes:
+
+volumes:
   pgdata:
 
-  networks:
-    tasksync-net:
-  # server:
-  #   build:
-  #     context: .
-  #     dockerfile: docker/Dockerfile.server
-  #   ports:
-  #     - "50051:50051"
-
-  # client:
-  #   build:
-  #     context: .
-  #     dockerfile: docker/Dockerfile.client
-  #   depends_on:
-  #     - server
-
-# services:
-#   db:
-#     image: postgres:15
-#     container_name: tasksync-db
-#     restart: always
-#     environment:
-#       POSTGRES_DB: tasksync
-#       POSTGRES_USER: user
-#       POSTGRES_PASSWORD: password
-#     ports:
-#       - "5432:5432"
-#     volumes:
-#       - pgdata:/var/lib/postgresql/data
-#     networks:
-#       - tasksync-net
-
-#   server:
-#     build:
-#       context: .
-#       dockerfile: docker/Dockerfile.server
-#     ports:
-#       - "50051:50051"
-#     environment:
-#       DB_HOST: db
-#       DB_PORT: 5432
-#       DB_USER: postgres
-#       DB_PASSWORD: 1234
-#       DB_NAME: tasksync
-#     depends_on:
-#       - db
-#     networks:
-#       - tasksync-net
-
-#   client:
-#     build:
-#       context: .
-#       dockerfile: docker/Dockerfile.client
-#     depends_on:
-#       - server
-#     networks:
-#       - tasksync-net
-
-# volumes:
-#   pgdata:
-
-# networks:
-#   tasksync-net:
+networks:
+  tasksync-net:

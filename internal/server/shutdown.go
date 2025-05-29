@@ -11,4 +11,7 @@ func ShutdownProcess(s *GRPCServer) {
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
 	s.Stop()
+	if DB != nil {
+		DB.Close()
+	}
 }

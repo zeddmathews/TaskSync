@@ -1,6 +1,5 @@
-# Placeholder Dockerfile for gRPC server
 FROM golang:1.24
 WORKDIR /app
 COPY . .
-RUN go build -o server ./server
+RUN go build -o server ./cmd/server
 CMD ["./server"]
