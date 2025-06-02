@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   db:
     image: postgres:17
@@ -13,14 +11,14 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
-      - ./docker/db-init/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql
+      - ./docker/db-init:/docker-entrypoint-initdb.d
     networks:
       - tasksync-net
 
   server:
     build:
       context: .
-      dockerfile: docker/Dockerfile.server
+      dockerfile: cmd/server/Dockerfile
     ports:
       - "50051:50051"
     environment:
@@ -28,20 +26,28 @@ services:
       DB_PORT: 5432
       DB_USER: postgres
       DB_PASSWORD: 1234
-      DB_NAME: tasksyncdb      # <-- match POSTGRES_DB value here
+      DB_NAME: tasksyncdb
     depends_on:
       - db
     networks:
       - tasksync-net
+    # volumes:
+      # - .:/app
+    working_dir: /app
+    entrypoint: ["sh", "cmd/server/wait-for-db.sh"]
 
   client:
     build:
       context: .
-      dockerfile: docker/Dockerfile.client
+      dockerfile: cmd/client/Dockerfile
     depends_on:
       - server
     networks:
       - tasksync-net
+    # volumes:
+      # - .:/app
+    working_dir: /app
+    entrypoint: ["sh", "cmd/client/wait-for-server.sh"]
 
 volumes:
   pgdata:

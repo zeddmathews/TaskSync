@@ -17,5 +17,7 @@ protoc --go_out=. --go_opt=paths=source_relative \
 $1, $2 -> placeholders to prevent sql injection, follows order defined in query execution args
 
 ** DB testing
-docker-compose down -v
+don't forget to launch docker first
+docker-compose down
+docker-compose down -v ->full reset
 docker-compose up --build

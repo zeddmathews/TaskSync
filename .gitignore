@@ -21,7 +21,7 @@ dist/
 vendor/
 
 # Go workspace stuff
-go.sum
+# go.sum
 
 # Logs
 *.log

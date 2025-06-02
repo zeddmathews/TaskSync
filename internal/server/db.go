@@ -3,8 +3,8 @@ package server
 import (
 	"database/sql"
 	"fmt"
+	// "log"
 	"os"
-
 	_ "github.com/lib/pq"
 )
 
@@ -19,7 +19,6 @@ func InitDB() error {
 		os.Getenv("DB_PASSWORD"),
 		os.Getenv("DB_NAME"),
 	)
-
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
 		return err
